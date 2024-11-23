@@ -1,0 +1,79 @@
+.cont {
+    padding: 1%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card {
+    background: linear-gradient(30deg, #7CBDE6, #2A7BAD);
+    border-radius: 5px;
+    padding: 80px;
+    text-align: center;
+}
+
+.card2 {
+    background: linear-gradient(30deg, #7CBDE6, #7CBDE6);
+    border-radius: 5px;
+    padding: 80px;
+    text-align: center;
+}
+
+.imgCuenta {
+    width: 150px;
+    height: auto;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: #2A7BAD;
+}
+
+.banner {
+    width: 50%;
+    padding-bottom: 1%;
+    /*
+    position: absolute;
+    top: 1;
+    left: 1;
+    z-index: 1;
+    */
+}
+
+
+.carta {
+    background: linear-gradient(30deg, #7CBDE6, #7CBDE6);
+    border-radius: 5px;
+    padding: 80px;
+    text-align: start;
+    /*
+    position: relative;
+    z-index: -1;
+    */
+}
+
+.contenedor {
+    padding-left: 1%;
+   /* 
+   position: relative;
+   */
+}
+p{
+    color:#153F59 !important;
+}
+
+@media (max-width: 3000px) {
+    .banner {
+        width: 100%;
+        padding-bottom: 1%;
+    }
+}
+
+.alinear{
+    text-align: start !important;
+}

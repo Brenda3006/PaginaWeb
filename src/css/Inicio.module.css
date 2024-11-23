@@ -1,0 +1,17 @@
+* {
+    font-family: "Red Hat Display", sans-serif;
+    font-optical-sizing: auto;
+    font-weight: weight;
+    font-style: normal;
+  }
+.title{
+    text-align: center;
+    text-shadow:
+    1px 1px 2px black,
+    0 0 1em #2A7BAD,
+    0 0 0.2em #2A7BAD;
+    font-size: 3rem;
+}
+.cont{
+  padding-bottom: 11%;
+}

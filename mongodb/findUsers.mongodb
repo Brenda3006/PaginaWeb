@@ -1,0 +1,17 @@
+//conection
+use('channelfandb');
+
+// Insert a few documents into the sales collection.
+/*db.usuario.insertOne({
+    Nombre:'Eduardo',
+    Apellido: 'Solis Calderon',
+    Contra: 'Eduardo1',
+    Email: 'eduardo@hotmail.com',
+    Genero: 'Masculino',
+    Tipo_user: 'cliente',
+    img_user: '',
+    FechaN:'1997-06-30T06:00:00.000+00:00',
+    Estatus: 'Activo'
+})
+*/
+db.usuario.find({})

@@ -1,0 +1,98 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mongodb"
+  url      = env("DATABASE_URL")
+}
+
+model usuario {
+  id         String   @id @default(auto()) @map("_id") @db.ObjectId // Identificador único
+  nombre     String   @map("Nombre")
+  apellido   String   @map("Apellido")
+  contra     String   @map("Contra")
+  email      String   @unique @map("Email") // Clave única para emails
+  genero     String   @map("Genero")
+  imgUser    String?  @map("img_user") // Campo opcional (puede ser nulo)
+  fechaN     DateTime @map("FechaN")// Cambiado a formato DateTime
+  tipoUser   String   @default("cliente") @map("tipoUser")
+  estatus    String   @default("Activo") @map("Estatus")
+  comentario  comentario[]
+  favoritos   favoritos[]
+}
+
+model pelicula {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId // Identificador único
+  nombre        String   @map("PeliculaN") // Nombre de la película
+  sinopsis      String   @map("Sinopsis")
+  categoria     String   @map("Categoria") // Géneros separados por comas
+  calificacion  Float    @map("Calificacion") // Cambiado a Float para calificaciones numéricas
+  fechaCreacion DateTime @default(now()) // Fecha de creación
+  horaCreacion  String   @map("HoraCreacion") // Hora como cadena
+  imgPelicula   String?  @map("img_pelicula") // Imagen de la película (opcional)
+  videoPelicula String?  @map("video_pelicula") // Video de la película (opcional)
+  idUsuario     String   @map("idusuario") @db.ObjectId // ID del usuario que creó la película
+  lanzamiento   Int      @map("Lanzamiento") // Año de lanzamiento
+  favoritos    favoritos[]
+  actores       peliculasActores[]
+}
+
+model listas_peliculas {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId // ID único de la lista
+  idUsuario     String   @map("idusuario") @db.ObjectId // Relación con el usuario que creó la lista
+  nombreLista   String   @map("NombreLista") // Nombre de la lista
+  peliculas     String   @map("Peliculas") // Lista de películas como una cadena de texto
+  fechaCreacion DateTime @default(now()) // Fecha de creación de la lista
+  privada       Boolean  @map("Privada") // Si es privada o pública
+}
+
+model favoritos {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId // ID único para el favorito
+  idUsuario     String   @map("idusuario") @db.ObjectId // Relación con el usuario
+  idPelicula    String   @map("idpelicula") @db.ObjectId // Relación con la película
+  fechaCreacion DateTime @default(now())// Fecha de creación del favorito
+ 
+ usuario       usuario  @relation(fields: [idUsuario], references: [id])
+ pelicula      pelicula @relation(fields: [idPelicula], references: [id])
+}
+
+model comentario {
+  id            String   @id @default(auto()) @map("_id") @db.ObjectId // ID único del comentario
+  idUsuario     String   @map("idusuario") @db.ObjectId // Relación con el usuario que escribió el comentario
+  comentario    String   @map("Comentario") // El contenido del comentario
+  idPelicula    String   @map("idpeli") @db.ObjectId // Relación con la película que está siendo comentada
+  fechaCreacion DateTime @default(now())// Fecha de creación del comentario
+  horaCreacion  String   @map("HoraCreacion") // Hora de creación
+  calificacion  Float    @map("Calificacion") // Calificación de la película dada en el comentario
+
+  // Relación con el Usuario
+  usuario       usuario  @relation(fields: [idUsuario], references: [id])
+}
+
+model actores {
+  id             String   @id @default(auto()) @map("_id") @db.ObjectId // ID único del actor
+  nombre         String   @map("Nombre") // Nombre del actor
+  fechaNacimiento DateTime @map("FechaNacimiento")// Fecha de nacimiento
+  filmografia    String   @map("Filmografia") // Películas en las que ha trabajado
+  nacionalidad   String   @map("Nacionalidad") // Nacionalidad del actor
+  peliculas      peliculasActores[]
+}
+
+model peliculasActores {
+  id        String   @id @default(auto()) @map("_id") @db.ObjectId
+  idPelicula String @db.ObjectId
+  idActor   String   @db.ObjectId
+
+  // Relación con Película
+  pelicula  pelicula @relation(fields: [idPelicula], references: [id])
+
+  // Relación con Actor
+  actor     actores  @relation(fields: [idActor], references: [id])
+}

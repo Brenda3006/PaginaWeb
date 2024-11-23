@@ -1,0 +1,132 @@
+.cont {
+    padding: 1%;
+    display: flex;
+    justify-content: flex-start;
+}
+
+.card {
+    text-align: start;
+  padding: 1%;
+   display: flex;
+}
+
+.card2 {
+    background: linear-gradient(30deg, #7CBDE6, #7CBDE6);
+    border-radius: 5px;
+    padding: 80px;
+    text-align: center;
+}
+
+.car3 {
+    text-align: start;
+    padding: 80px;
+    
+}
+
+.imgCuenta {
+    width: 10%;
+    border-radius: 50%;
+    margin-bottom: 10px;
+    
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+a:hover {
+    color: #2A7BAD;
+}
+
+
+.carta {
+    background: linear-gradient(30deg, #7CBDE6, #7CBDE6);
+    border-radius: 5px;
+    padding: 1%;
+    text-align: start;
+    margin: 1%;
+    border: 1%;
+}
+
+.contenedor {
+    padding-left: 5%;
+    padding-right: 5%;
+    padding-bottom: 1%;
+}
+
+p{
+    color:#153F59 !important;
+}
+
+.titulo{
+    padding-left: 7%;
+}
+
+.ContCuenta{
+    text-align: center;
+}
+
+.imgReview{
+    width: 3%;
+    border-radius: 50%;
+    margin-right: 20px;
+}
+
+h4{
+    margin-right: 20px;
+}
+
+.disp{
+    display: flex;
+}
+
+.descripcion{
+    padding-left: 5%;
+}
+
+@media (max-width: 3000px) {
+    .banner {
+        max-width: 30%;
+        padding-bottom: 1%;
+    }
+}
+
+@media (max-width: 900) {
+    .banner {
+        max-width: 100%;
+        padding-bottom: 1%;
+    }
+}
+
+/*Estrellas*/
+.starRating {
+    font-size: 1.5em;
+  }
+  
+  .starRating span {
+    display: inline-block;
+    width: 1em;
+    overflow: hidden;
+    position: relative;
+    color: #ccc;
+  }
+  
+  .starRating span:before {
+    content: "★";
+    position: absolute;
+    left: 0;
+    color: gold;
+  }
+  
+  .starRating span:nth-child(1):before { z-index: 5; }
+  .starRating span:nth-child(2):before { z-index: 4; }
+  .starRating span:nth-child(3):before { z-index: 3; }
+  .starRating span:nth-child(4):before { z-index: 2; }
+  .starRating span:nth-child(5):before { z-index: 1; }
+  
+  /* Para estrellas vacías */
+  .starRatingEmpty span:before {
+    content: "☆";
+    color: #ccc;
+  }
