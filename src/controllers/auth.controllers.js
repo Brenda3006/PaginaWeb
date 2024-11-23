@@ -38,7 +38,7 @@ export const registrarUsuario = async (req, res) => {
       imageUrl = await uploadImageToGridFS(imagePath, `${nombre}_${Date.now()}.jpg`);
       await fs.unlink(imagePath); // Eliminar archivo temporal
     }
-
+    
     // Encriptar la contraseña
     const hashedPassword = await bcrypt.hash(contra, 10);
 

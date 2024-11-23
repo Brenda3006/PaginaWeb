@@ -5,6 +5,94 @@ import { Footer } from './Footer';
 import { Navbar } from './Navbar';
 
 const Registro = () => {
+  const [formData, setFormData] = useState({
+    nombre: '',
+    apellido: '',
+    fechaN: '',
+    email: '',
+    contra: '',
+    genero: '',
+    imagen: null, // Inicia como null
+    tipoUser: 'cliente',
+    estatus: 'Activo',
+  });
+
+  const [previewImage, setPreviewImage] = useState(null);
+
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData({
+      ...formData,
+      [name]: value,
+    });
+  };
+
+  const handleImageChange = (e) => {
+    const file = e.target.files[0];
+    if (file) {
+      setFormData({ ...formData, imagen: file });
+      setPreviewImage(URL.createObjectURL(file));
+    }
+  };
+
+  useEffect(() => {
+    return () => {
+      if (previewImage) {
+        URL.revokeObjectURL(previewImage);
+      }
+    };
+  }, [previewImage]);
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+
+    // Crear objeto FormData
+    const formDataObj = new FormData();
+    formDataObj.append('imagen', formData.imagen); // Agregar la imagen al FormData
+
+    // Agregar el resto de los datos
+    Object.keys(formData).forEach((key) => {
+      if (key !== 'imagen') {
+        formDataObj.append(key, formData[key]);
+      }
+    });
+
+    // Validar la fecha
+    const fechaConvertida = new Date(formData.fechaN);
+    if (isNaN(fechaConvertida)) {
+      alert('La fecha proporcionada no es válida.');
+      return;
+    }
+
+    try {
+      const response = await fetch('http://localhost:3000/api/usuarios', {
+        method: 'POST',
+        body: formDataObj, // Enviar el FormData
+      });
+
+      if (response.ok) {
+        alert('Usuario registrado exitosamente');
+        setFormData({
+          nombre: '',
+          apellido: '',
+          fechaN: '',
+          email: '',
+          contra: '',
+          genero: '',
+          imagen: null,
+          tipoUser: 'cliente',
+          estatus: 'Activo',
+        });
+        setPreviewImage(null);
+      } else {
+        alert('Error al registrar el usuario');
+      }
+    } catch (error) {
+      console.error('Error al enviar datos:', error);
+      alert('Hubo un problema al intentar registrar el usuario');
+    }
+  };
+/*const Registro = () => {
   // Estado para almacenar los datos del formulario
   const [formData, setFormData] = useState({
     nombre: '',
@@ -58,6 +146,7 @@ const Registro = () => {
         formDataObj.append(key, formData[key]);
       }
     });
+
     // Verifica que la imagen exista antes de enviarla
     if (formData.imagen) {
       formDataObj.append('imagen', formData.imagen);
@@ -110,7 +199,7 @@ const Registro = () => {
       alert('Hubo un problema al intentar registrar el usuario');
     }
   };
-
+*/
   return (
     <div className="hola">
       <Navbar />
